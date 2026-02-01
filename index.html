@@ -7,28 +7,17 @@
     <style>
         body {
             margin: 0;
-            padding: 40px 10px;
+            padding: 50px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        /* Naam ka style */
-        .user-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-            text-transform: uppercase;
+            background-color: #ffffff;
         }
 
         .container {
             width: 100%;
             max-width: 480px;
-            display: none; /* JavaScript se show hoga */
+            display: none; /* JavaScript isay show karegi */
             flex-direction: column;
             gap: 25px;
         }
@@ -36,7 +25,7 @@
         .card-box {
             width: 100%;
             background: #fff;
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
             box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
         }
@@ -52,14 +41,13 @@
             color: #888;
             margin-top: 100px;
             display: none;
+            font-family: sans-serif;
         }
     </style>
 </head>
 <body>
 
     <div class="container" id="cardContainer">
-        <div class="user-name" id="displayName">Loading Name...</div>
-
         <div class="card-box">
             <img id="frontImg" src="" alt="Front Side">
         </div>
@@ -71,30 +59,30 @@
 
     <div id="error" class="error-msg">
         <h2>Invalid ID Card</h2>
-        <p>Please scan a valid QR code.</p>
+        <p>Please scan a valid QR code to see the details.</p>
     </div>
 
     <script>
+        // URL se 'id' lene ke liye (e.g., ?id=5)
         const urlParams = new URLSearchParams(window.location.search);
         const userId = urlParams.get('id');
 
-        // Yahan aap 10 logon ke naam badal sakte hain
+        // 10 logon ka data (Images ke naam)
         const users = {
-            "1": { name: "Nasir Ullah Khan", front: "p1_front.png", back: "p1_back.png" },
-            "2": { name: "Ali Ahmed", front: "p2_front.png", back: "p2_back.png" },
-            "3": { name: "Kaleem Ullah", front: "p3_front.png", back: "p3_back.png" },
-            "4": { name: "Sajid Ali", front: "p4_front.png", back: "p4_back.png" },
-            "5": { name: "Umar Farooq", front: "p5_front.png", back: "p5_back.png" },
-            "6": { name: "Zeeshan Haider", front: "p6_front.png", back: "p6_back.png" },
-            "7": { name: "Bilal Jan", front: "p7_front.png", back: "p7_back.png" },
-            "8": { name: "Imran Raza", front: "p8_front.png", back: "p8_back.png" },
-            "9": { name: "Waseem Akram", front: "p9_front.png", back: "p9_back.png" },
-            "10": { name: "Kamran Khan", front: "p10_front.png", back: "p10_back.png" }
+            "1": { front: "p1_front.png", back: "p1_back.png" },
+            "2": { front: "p2_front.png", back: "p2_back.png" },
+            "3": { front: "p3_front.png", back: "p3_back.png" },
+            "4": { front: "p4_front.png", back: "p4_back.png" },
+            "5": { front: "p5_front.png", back: "p5_back.png" },
+            "6": { front: "p6_front.png", back: "p6_back.png" },
+            "7": { front: "p7_front.png", back: "p7_back.png" },
+            "8": { front: "p8_front.png", back: "p8_back.png" },
+            "9": { front: "p9_front.png", back: "p9_back.png" },
+            "10": { front: "p10_front.png", back: "p10_back.png" }
         };
 
         if (userId && users[userId]) {
             document.getElementById('cardContainer').style.display = 'flex';
-            document.getElementById('displayName').innerText = users[userId].name;
             document.getElementById('frontImg').src = users[userId].front;
             document.getElementById('backImg').src = users[userId].back;
         } else {
