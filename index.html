@@ -3,36 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ID Card Layout</title>
+    <title>ID Card Verification</title>
     <style>
         body {
             margin: 0;
-            padding: 50px 20px;
+            padding: 40px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #ffffff; /* White background jaisa screenshot mein hai */
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Naam ka style */
+        .user-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
         }
 
         .container {
             width: 100%;
-            max-width: 480px; /* Card ki munasib width */
-            display: flex;
+            max-width: 480px;
+            display: none; /* JavaScript se show hoga */
             flex-direction: column;
-            gap: 25px; /* Dono cards ke darmiyan fasla */
+            gap: 25px;
         }
 
         .card-box {
             width: 100%;
             background: #fff;
-            border-radius: 8px; /* Halkay round corners */
+            border-radius: 12px;
             overflow: hidden;
-            
-            /* Screenshot jaisi gehri shadow */
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3); 
-            
-            /* No animation style */
-            display: block;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         img {
@@ -40,19 +46,61 @@
             height: auto;
             display: block;
         }
+
+        .error-msg {
+            text-align: center;
+            color: #888;
+            margin-top: 100px;
+            display: none;
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="container" id="cardContainer">
+        <div class="user-name" id="displayName">Loading Name...</div>
+
         <div class="card-box">
-            <img src="front.png" alt="ID Card Front">
+            <img id="frontImg" src="" alt="Front Side">
         </div>
 
         <div class="card-box">
-            <img src="back.png" alt="ID Card Back">
+            <img id="backImg" src="" alt="Back Side">
         </div>
     </div>
+
+    <div id="error" class="error-msg">
+        <h2>Invalid ID Card</h2>
+        <p>Please scan a valid QR code.</p>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('id');
+
+        // Yahan aap 10 logon ke naam badal sakte hain
+        const users = {
+            "1": { name: "Nasir Ullah Khan", front: "p1_front.png", back: "p1_back.png" },
+            "2": { name: "Ali Ahmed", front: "p2_front.png", back: "p2_back.png" },
+            "3": { name: "Kaleem Ullah", front: "p3_front.png", back: "p3_back.png" },
+            "4": { name: "Sajid Ali", front: "p4_front.png", back: "p4_back.png" },
+            "5": { name: "Umar Farooq", front: "p5_front.png", back: "p5_back.png" },
+            "6": { name: "Zeeshan Haider", front: "p6_front.png", back: "p6_back.png" },
+            "7": { name: "Bilal Jan", front: "p7_front.png", back: "p7_back.png" },
+            "8": { name: "Imran Raza", front: "p8_front.png", back: "p8_back.png" },
+            "9": { name: "Waseem Akram", front: "p9_front.png", back: "p9_back.png" },
+            "10": { name: "Kamran Khan", front: "p10_front.png", back: "p10_back.png" }
+        };
+
+        if (userId && users[userId]) {
+            document.getElementById('cardContainer').style.display = 'flex';
+            document.getElementById('displayName').innerText = users[userId].name;
+            document.getElementById('frontImg').src = users[userId].front;
+            document.getElementById('backImg').src = users[userId].back;
+        } else {
+            document.getElementById('error').style.display = 'block';
+        }
+    </script>
 
 </body>
 </html>
